@@ -1,0 +1,3 @@
+github_owner      = "example-owner"
+github_repository = "aws-iac-pipeline-showcase"
+name_prefix        = "example-iac-showcase"
