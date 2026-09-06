@@ -3,8 +3,8 @@ provider "aws" {
 
   default_tags {
     tags = {
-      Project   = "aws-iac-pipeline-showcase"
-      ManagedBy = "Terraform"
+      Project     = "aws-iac-pipeline-showcase"
+      ManagedBy   = "Terraform"
       Environment = var.environment
     }
   }
