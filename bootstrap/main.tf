@@ -124,11 +124,11 @@ resource "aws_iam_role_policy" "terraform_plan" {
         Effect = "Allow"
         Action = [
           "s3:GetBucketLocation",
-        "s3:GetBucketPublicAccessBlock",
-        "s3:GetBucketTagging",
-        "s3:GetBucketVersioning",
-        "s3:ListBucket"
-      ]
+          "s3:GetBucketPublicAccessBlock",
+          "s3:GetBucketTagging",
+          "s3:GetBucketVersioning",
+          "s3:ListBucket"
+        ]
         Resource = "arn:aws:s3:::example-*"
       },
       {
@@ -167,13 +167,13 @@ resource "aws_iam_role_policy" "terraform_apply" {
         Effect = "Allow"
         Action = [
           "s3:CreateBucket",
-        "s3:DeleteBucket",
-        "s3:Get*",
-        "s3:List*",
-        "s3:PutBucketPublicAccessBlock",
-        "s3:PutBucketTagging",
-        "s3:PutBucketVersioning"
-      ]
+          "s3:DeleteBucket",
+          "s3:Get*",
+          "s3:List*",
+          "s3:PutBucketPublicAccessBlock",
+          "s3:PutBucketTagging",
+          "s3:PutBucketVersioning"
+        ]
         Resource = "arn:aws:s3:::example-*"
       },
       {
