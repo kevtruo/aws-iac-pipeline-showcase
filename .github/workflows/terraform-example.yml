@@ -18,7 +18,7 @@ env:
 
 jobs:
   plan:
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && vars.TF_PLAN_ROLE_ARN != '' && vars.TF_STATE_BUCKET != '' && vars.TF_LOCK_TABLE != '' && vars.AWS_REGION != ''
     runs-on: ubuntu-latest
     defaults:
       run:
