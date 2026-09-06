@@ -119,16 +119,35 @@ resource "aws_iam_role_policy" "terraform_plan" {
 
   policy = jsonencode({
     Version = "2012-10-17"
-    Statement = [{
-      Effect = "Allow"
-      Action = [
-        "s3:GetBucketLocation",
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:GetBucketLocation",
+        "s3:GetBucketPublicAccessBlock",
         "s3:GetBucketTagging",
         "s3:GetBucketVersioning",
         "s3:ListBucket"
       ]
-      Resource = "arn:aws:s3:::example-*"
-    }]
+        Resource = "arn:aws:s3:::example-*"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject",
+          "s3:ListBucket"
+        ]
+        Resource = [
+          aws_s3_bucket.terraform_state.arn,
+          "${aws_s3_bucket.terraform_state.arn}/*"
+        ]
+      },
+      {
+        Effect   = "Allow"
+        Action   = ["dynamodb:GetItem"]
+        Resource = aws_dynamodb_table.terraform_locks.arn
+      }
+    ]
   })
 }
 
@@ -143,17 +162,42 @@ resource "aws_iam_role_policy" "terraform_apply" {
 
   policy = jsonencode({
     Version = "2012-10-17"
-    Statement = [{
-      Effect = "Allow"
-      Action = [
-        "s3:CreateBucket",
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:CreateBucket",
         "s3:DeleteBucket",
         "s3:Get*",
         "s3:List*",
+        "s3:PutBucketPublicAccessBlock",
         "s3:PutBucketTagging",
         "s3:PutBucketVersioning"
       ]
-      Resource = "arn:aws:s3:::example-*"
-    }]
+        Resource = "arn:aws:s3:::example-*"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:DeleteObject",
+          "s3:GetObject",
+          "s3:ListBucket",
+          "s3:PutObject"
+        ]
+        Resource = [
+          aws_s3_bucket.terraform_state.arn,
+          "${aws_s3_bucket.terraform_state.arn}/*"
+        ]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "dynamodb:DeleteItem",
+          "dynamodb:GetItem",
+          "dynamodb:PutItem"
+        ]
+        Resource = aws_dynamodb_table.terraform_locks.arn
+      }
+    ]
   })
 }
