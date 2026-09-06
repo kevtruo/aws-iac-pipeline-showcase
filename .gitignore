@@ -1,0 +1,18 @@
+# Terraform working data and state
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+
+# Local values may contain account-specific data
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+
+# Generated packages and local tooling
+*.zip
+.DS_Store
+.env
+.env.*
